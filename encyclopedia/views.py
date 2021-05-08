@@ -32,7 +32,7 @@ def random(request):
     return entry(request, title)
 
 def new(request):
-    
+
     if request.method == "POST":
 
         form = NewEntryForm(request.POST)
@@ -42,6 +42,12 @@ def new(request):
             # Isolate the title and markdown from the 'cleaned' version of form data
             title = form.cleaned_data["title"]
             markdown = form.cleaned_data["markdown"]
+
+            # Check if the title already exists
+            if title in util.list_entries():
+                return render(request, "encyclopedia/new.html", {
+                    "form" : NewEntryForm()
+                })                
 
             # Add the new title and markdown to our list of entries
             util.save_entry(title, markdown)
