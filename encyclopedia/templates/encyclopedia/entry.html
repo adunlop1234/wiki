@@ -8,4 +8,10 @@
 
     {{ entry | safe}}
 
+    <div>
+        <form action='/wiki/edit/{{title}}' method="GET">
+            <input value="Edit Entry" type="submit">
+        </form>
+    </div>
+
 {% endblock %}
